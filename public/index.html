@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="BookSeat">
+
+<head>
+  <title>Movie Ticket Counter Booking</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+  <link rel="stylesheet" href="/stylesheets/materialize.min.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
+</head>
+
+<body >
+  <nav class="navbar-fixed black">
+    <div class="nav-wrapper main-nav container">
+      <a class="brand-logo">Reserve the seat</a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <div id="main-wrapper" class="container" ng-controller="MainCtrl">
+    <div class="row">
+      <form class="col s12" ng-submit="submit()">
+        <div class="row">
+          <div class="input-field col s4">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="icon_prefix" type="text" class="validate" ng-model="username">
+            <label for="icon_prefix">Name</label>
+          </div>
+          <div class="input-field col s4">
+            <i class="material-icons prefix">format_list_numbered</i>
+            <input id="icon_telephone" type="number" class="validate" ng-model="noOfSeats">
+            <label for="icon_telephone">No. of Seats</label>
+          </div>
+          <div class="col s4">
+            <button class="waves-effect waves-light btn right" type="submit" ><i class="material-icons right">send</i>Submit</a>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="row" ng-show="ticketgrid">
+      <div class="col s1" style="margin-top:28px;">
+        <div class="row">
+          {{  }}
+        </div>
+        <div class=" reps row" ng-repeat="char in chars">
+          {{char}}
+        </div>
+      </div>
+      <div class="col s11">
+        <div class="row">
+          <div class="col s1" ng-repeat="num in nums">
+            {{num}}
+          </div>
+        </div>
+        <div class="row">
+          <form class="col s12">
+            <div class="row" ng-repeat="x in seats track by $index" >
+              <div class="col s1" ng-repeat="y in x track by $index">
+                <input class="filled-in" type="checkbox" ng-disabled="y.disable" ng-model="y.status" id="{{y.id}}" ng-change="chooseSeat(y.id,$parent.$index,$index)"/>
+                <label for="{{y.id}}"></label>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col s4">
+      <button class="waves-effect waves-light btn right" type="submit" ng-show="bookedBtn" ng-click="bookTickets()"><i class="material-icons right">send</i>Submit</a>
+   
+    </div>
+
+    <div class="row">
+      <table class="responsive-table striped">
+          <thead>
+            <tr>
+                <th data-field="id">Name</th>
+                <th data-field="name">Number Of Seats</th>
+                <th data-field="price">Seats</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr ng-repeat="user in bookedSeat">
+              <td>{{user.username}}</td>
+              <td>{{user.noOfSeats}}</td>
+              <td>
+                <div class="row">
+                  <div class="col s1" ng-repeat="seat in user.seats">
+                    {{seat.no}}
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+  <div class="hiddendiv ">
+    <!-- Angular Material Dependencies-->
+    <script src="/javascripts/global/angular.min.js "></script>
+    <script src="/javascripts/global/jquery.js "></script>
+    <script src="/javascripts/global/materialize.min.js "></script>
+    <script src="/javascripts/MainController.js "></script>
+    <script>
+    $('.button-collapse').sideNav({
+      menuWidth: 300, // Default is 240
+      edge: 'left', // Choose the horizontal origin
+      closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+    });
+    </script>
+  </div>
+</body>
+
+</html>
